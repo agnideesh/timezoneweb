@@ -601,15 +601,22 @@ const server = http.createServer((req, res) => {
 
     // Serve static files
     // Strip query parameters from URL before looking up file
+    console.log('Static request:', req.url);
     let requestUrl = req.url.split('?')[0];
+    console.log('requestUrl:', requestUrl);
     let filePath = requestUrl === '/' ? '/page-1/welcome.html' : requestUrl;
+    console.log('initial filePath:', filePath);
     filePath = path.join(BASE_DIR, filePath);
+    console.log('final filePath:', filePath);
+    console.log('BASE_DIR:', BASE_DIR);
+    console.log('exists:', fs.existsSync(filePath));
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = mimeTypes[ext] || 'application/octet-stream';
 
     fs.readFile(filePath, (err, content) => {
         if (err) {
+            console.log('Read error:', err);
             if (err.code === 'ENOENT') {
                 res.writeHead(404);
                 res.end('File not found');
