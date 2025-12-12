@@ -604,7 +604,12 @@ const server = http.createServer((req, res) => {
     console.log('Static request:', req.url);
     let requestUrl = req.url.split('?')[0];
     console.log('requestUrl:', requestUrl);
-    let filePath = requestUrl === '/' ? '/page-1/welcome.html' : requestUrl;
+    if (requestUrl === '/') {
+        res.writeHead(302, { 'Location': '/page-1/welcome.html' });
+        res.end();
+        return;
+    }
+    let filePath = requestUrl;
     console.log('initial filePath:', filePath);
     filePath = path.join(BASE_DIR, filePath);
     console.log('final filePath:', filePath);
