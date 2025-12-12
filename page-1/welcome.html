@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><head><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timezone Welcome</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../edit-mode.css">
+<script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script><script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script></head>
+
+<body class="" bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjM1Iiwic2NvcmUiOjIwMDM1fV0=" __processed_a16b3731-422b-48f8-9328-b9c332ae64d3__="true" __processed_b16176a1-55af-45bb-8748-4afcc0a54abd__="true">
+    <div class="container" bis_skin_checked="1">
+        <!-- Video Background -->
+        <video class="video-bg" autoplay="" loop="" muted="" playsinline="">
+            <source src="other-bg.mp4" type="video/mp4">
+        </video>
+        <div class="language-selector" bis_skin_checked="1">
+            <button id="lang-btn" onclick="toggleLanguage()" fdprocessedid="7p3nyl">
+                <span id="current-lang">Bahasa</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div id="lang-dropdown" class="dropdown-content hidden" bis_skin_checked="1">
+                <div onclick="setLanguage('en')" bis_skin_checked="1">English</div>
+                <div onclick="setLanguage('id')" bis_skin_checked="1">Bahasa</div>
+            </div>
+        </div>
+        
+        <!-- Back Button -->
+        <img src="back-button.png" alt="Back" class="back-button" onclick="window.history.back()">
+
+        <div class="content" bis_skin_checked="1">
+            <img src="timezone-branding.png" alt="Timezone Logo" class="logo timezone-branding editable" data-id="logo" style="z-index: -1; position: relative;">
+
+            <h1 id="main-text" class="glow-text editable" data-id="main-text" style="z-index: 9; position: relative; transform: translate(0px, -42.6667px) scale(1.6); font-weight: normal;">ISI SALDOMU<br>DI SINI!</h1>
+
+            <div class="character-wrapper editable" data-id="character" style="transform: translate(0px, 0px) scale(2.5);" bis_skin_checked="1">
+                <img src="cat-character.gif" alt="Character" class="character">
+            </div>
+
+            <div class="button-wrapper editable" data-id="button" onclick="handleStart()" style="transform: translate(7.99997px, 21.3334px) scale(1.9);" bis_skin_checked="1">
+                <img src="button.png" alt="Start Button" class="button-bg">
+                <span id="button-text" class="button-text">MULAI</span>
+            </div>
+            <img src="timezone-branding.png" alt="Added Image" class="timezone-branding editable added-element" data-id="added-1-1765031274303" style="position: absolute; top: 50%; left: 50%; z-index: 50; transform: translate(calc(-50% + 5.33337px), calc(-50% - 634.667px)) scale(1.5);">
+        </div>
+    </div>
+
+    <script src="session-manager.js"></script>
+    <script src="language.js"></script>
+    <script src="../edit-mode.js"></script>
+    <script>
+        // Start fresh session ONLY if:
+        // 1. Coming from screensaver (fresh start)
+        // 2. No existing session
+        // 3. User explicitly clicked home/restart button (marked in localStorage)
+        const referrer = document.referrer || '';
+        const isFromScreensaver = referrer.includes('screensaver');
+        const isExplicitRestart = localStorage.getItem('tizo_restart') === 'true';
+        const existingSession = getSession();
+
+        if (isFromScreensaver || !existingSession || isExplicitRestart) {
+            startNewSession(true);
+            localStorage.removeItem('tizo_restart'); // Clear restart flag
+            console.log('Started fresh session (from screensaver or explicit restart)');
+        } else {
+            // User navigated back - preserve their session
+            setCurrentPage('welcome');
+            console.log('Preserved existing session for back navigation');
+        }
+        const translations = {
+            en: {
+                main: "TOP-UP<br>HERE!",
+                button: "START",
+                langLabel: "English"
+            },
+            id: {
+                main: "ISI SALDOMU<br>DI SINI!",
+                button: "MULAI",
+                langLabel: "Bahasa"
+            }
+        };
+
+        let currentLang = getCurrentLanguage();
+
+        function toggleLanguage() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            const data = translations[lang];
+
+            document.getElementById('main-text').innerHTML = data.main;
+            document.getElementById('button-text').textContent = data.button;
+            document.getElementById('current-lang').textContent = data.langLabel;
+        }
+
+        function setLanguage(lang) {
+            saveLanguage(lang);
+            applyLanguage(lang);
+            document.getElementById('lang-dropdown').classList.add('hidden');
+        }
+
+        function handleStart() {
+            if (window.isEditModeActive && window.isEditModeActive()) return;
+            window.location.href = 'welcome2.html';
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function (event) {
+            if (!event.target.matches('#lang-btn') && !event.target.closest('#lang-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('hidden')) {
+                        openDropdown.classList.add('hidden');
+                    }
+                }
+            }
+        }
+
+        // Initialize edit mode
+        initEditMode({ pageId: 'welcome' });
+
+        // Apply saved language preference
+        applyLanguage(currentLang);
+
+        // Idle detection - redirect to screensaver after 10 seconds of inactivity
+        let idleTimeout;
+        const IDLE_TIME = 10000; // 10 seconds
+
+        function resetIdleTimer() {
+            clearTimeout(idleTimeout);
+            // Only set idle timer if not in edit mode
+            if (!window.isEditModeActive || !window.isEditModeActive()) {
+                idleTimeout = setTimeout(function () {
+                    window.location.href = 'screensaver-ood.html';
+                }, IDLE_TIME);
+            }
+        }
+
+        // Reset timer on any user activity
+        ['mousemove', 'mousedown', 'keypress', 'touchstart', 'scroll', 'click'].forEach(function (event) {
+            document.addEventListener(event, resetIdleTimer, true);
+        });
+
+        // Start the idle timer
+        resetIdleTimer();
+    </script>
+
+
+
+
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

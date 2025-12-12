@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en"><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><head><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
+    <title>Timezone - Feedback</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../edit-mode.css">
+    <style>
+        @font-face {
+            font-family: 'Nulshock';
+            src: url('../nulshock/Nulshock-Bd.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+
+        /* Fixed for 1080x1920 resolution - NO SCROLLING */
+        html,
+        body {
+            overflow: hidden;
+            background: #000;
+        }
+
+        .container {
+            width: 1080px;
+            height: 1920px;
+            overflow: hidden;
+            background: #000000 !important;
+        }
+
+        .content {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            padding-top: 60px;
+            background: transparent !important;
+        }
+
+        /* Branding Logo */
+        .branding-section {
+            margin-bottom: 40px;
+        }
+
+        .branding-logo {
+            width: 700px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Popup Container */
+        .popup-container {
+            position: relative;
+            width: 900px;
+            height: 750px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .popup-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        .popup-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 60px 50px 40px;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-title {
+            font-family: 'Nulshock', sans-serif;
+            font-size: 65px;
+            background: linear-gradient(180deg, #ffff00 0%, #ffaa00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.5)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-family: 'Nulshock', sans-serif;
+            font-size: 22px;
+            color: #b8f5ff;
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+
+        /* Emoji Rating Section */
+        .rating-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .rating-item:hover {
+            transform: scale(1.1);
+        }
+
+        .rating-item.selected {
+            transform: scale(1.15);
+        }
+
+        .rating-icon {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            transition: all 0.2s ease;
+        }
+
+        .rating-label {
+            font-family: 'Nulshock', sans-serif;
+            font-size: 14px;
+            color: #aaaaaa;
+            margin-top: 10px;
+            text-align: center;
+            max-width: 100px;
+        }
+
+        .rating-item.selected .rating-label {
+            color: #ffffff;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            position: relative;
+            width: 500px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.1s;
+            margin-top: 80px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-4px);
+        }
+
+        .submit-button:active {
+            transform: scale(0.95);
+        }
+
+        .submit-button-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        .submit-button-text {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-family: 'Nulshock', sans-serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .submit-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .submit-button.disabled:hover {
+            transform: none;
+        }
+    </style>
+<script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script><script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script></head>
+
+<body class="" __processed_3e7892a4-808f-4c4f-8ea7-0dd0c9b04ddb__="true" bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjM1Iiwic2NvcmUiOjIwMDM1fV0=" __processed_e4a8e295-edb4-4b26-b748-d3e22bdf5ae5__="true" __processed_b46d3f21-cc14-4135-83e1-d920e9a260b3__="true">
+    <div class="container" bis_skin_checked="1">
+        <!-- Video Background -->
+        <video class="video-bg" autoplay="" loop="" muted="" playsinline="">
+            <source src="other-bg.mp4" type="video/mp4">
+        </video>
+                <!-- Home Button -->
+        <img src="home.png" alt="Home" class="editable added-element" data-id="home-button" onclick="goHome()" style="max-width: 200px; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(calc(-50% + 458.667px), calc(-50% - 792px)) scale(0.9); z-index: 50; cursor: pointer;">
+
+        <div class="content" bis_skin_checked="1">
+            <!-- Timezone Branding -->
+            <div class="branding-section editable" data-id="branding-section" style="transform: translate(0px, 34.6667px) scale(1);" bis_skin_checked="1">
+                <img src="timezone-branding.png" alt="Timezone" class="branding-logo timezone-branding">
+            </div>
+
+            <!-- Popup Container -->
+            <div class="popup-container editable" data-id="popup-container" style="transform: translate(13.3333px, 109.333px) scale(1.4);" bis_skin_checked="1">
+                <img src="pop-up-summary.png" alt="Popup Background" class="popup-bg" data-no-text-edit="true">
+
+                <div class="popup-content" bis_skin_checked="1">
+                    <!-- Header Section -->
+                    <div class="header-section editable" data-id="header-section" style="transform: translate(-8.00006px, 5.33337px) scale(0.6);" bis_skin_checked="1">
+                        <h1 id="header-title" class="header-title">BERI NILAI<br>PENGALAMANMU</h1>
+                        <p id="header-subtitle" class="header-subtitle">TAP ICON UNTUK MEMBERIKAN PENILAIAN</p>
+                    </div>
+
+                    <!-- Emoji Rating Section -->
+                    <div class="rating-section editable" data-id="rating-section" style="transform: translate(0px, 0px) scale(0.8);" bis_skin_checked="1">
+                        <div class="rating-item" data-rating="1" onclick="selectRating(1)" bis_skin_checked="1">
+                            <img id="rating-1" src="feedback-icons/angry.png" alt="Angry" class="rating-icon">
+                            <span id="label-1" class="rating-label">Sangat Tidak Puas</span>
+                        </div>
+                        <div class="rating-item" data-rating="2" onclick="selectRating(2)" bis_skin_checked="1">
+                            <img id="rating-2" src="feedback-icons/sad.png" alt="Sad" class="rating-icon">
+                            <span id="label-2" class="rating-label">Tidak Puas</span>
+                        </div>
+                        <div class="rating-item" data-rating="3" onclick="selectRating(3)" bis_skin_checked="1">
+                            <img id="rating-3" src="feedback-icons/ok.png" alt="OK" class="rating-icon">
+                            <span id="label-3" class="rating-label">Puas</span>
+                        </div>
+                        <div class="rating-item" data-rating="4" onclick="selectRating(4)" bis_skin_checked="1">
+                            <img id="rating-4" src="feedback-icons/happy_selected.png" alt="Happy" class="rating-icon">
+                            <span id="label-4" class="rating-label">Sangat Puas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-button editable" data-id="submit-button" onclick="handleSubmit()" style="transform: translate(-5.33331px, 245.333px) scale(1.2);" bis_skin_checked="1">
+                <img src="button.png" alt="Button" class="submit-button-bg">
+                <span id="submit-text" class="submit-button-text">KIRIM PENILAIAN</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="session-manager.js"></script>
+    <script src="language.js"></script>
+    <script src="../edit-mode.js"></script>
+    <script>
+        // Set current page in session
+        setCurrentPage('feedback');
+
+        const translations = {
+            en: {
+                headerTitle: "RATE YOUR<br>EXPERIENCE",
+                headerSubtitle: "TAP A SMILEY TO DROP YOUR RATING...",
+                label1: "Highly Dissatisfied",
+                label2: "Dissatisfied",
+                label3: "Somewhat Satisfied",
+                label4: "Very Satisfied",
+                submitText: "SUBMIT RATING",
+                langLabel: "English"
+            },
+            id: {
+                headerTitle: "BERI NILAI<br>PENGALAMANMU",
+                headerSubtitle: "TAP ICON UNTUK MEMBERIKAN PENILAIAN",
+                label1: "Sangat Tidak Puas",
+                label2: "Tidak Puas",
+                label3: "Puas",
+                label4: "Sangat Puas",
+                submitText: "KIRIM PENILAIAN",
+                langLabel: "Bahasa"
+            }
+        };
+
+        let currentLang = getCurrentLanguage();
+        let selectedRating = null;
+
+        const iconPaths = {
+            1: { normal: 'feedback-icons/angry.png', selected: 'feedback-icons/angry_selected.png' },
+            2: { normal: 'feedback-icons/sad.png', selected: 'feedback-icons/sad_selected.png' },
+            3: { normal: 'feedback-icons/ok.png', selected: 'feedback-icons/ok_selected.png' },
+            4: { normal: 'feedback-icons/happy.png', selected: 'feedback-icons/happy_selected.png' }
+        };
+
+        function selectRating(rating) {
+            if (window.isEditModeActive && window.isEditModeActive()) {
+                return;
+            }
+
+            // Reset all icons to normal state
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`rating-${i}`).src = iconPaths[i].normal;
+                document.querySelector(`[data-rating="${i}"]`).classList.remove('selected');
+            }
+
+            // Set selected icon
+            selectedRating = rating;
+            document.getElementById(`rating-${rating}`).src = iconPaths[rating].selected;
+            document.querySelector(`[data-rating="${rating}"]`).classList.add('selected');
+
+            // Enable submit button
+            document.querySelector('.submit-button').classList.remove('disabled');
+        }
+
+        function toggleLanguage() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            const data = translations[lang];
+
+            document.getElementById('header-title').innerHTML = data.headerTitle;
+            document.getElementById('header-subtitle').textContent = data.headerSubtitle;
+            document.getElementById('label-1').textContent = data.label1;
+            document.getElementById('label-2').textContent = data.label2;
+            document.getElementById('label-3').textContent = data.label3;
+            document.getElementById('label-4').textContent = data.label4;
+            document.getElementById('submit-text').textContent = data.submitText;
+            const langEl = document.getElementById('current-lang');
+            if (langEl) langEl.textContent = data.langLabel;
+        }
+
+        function setLanguage(lang) {
+            saveLanguage(lang);
+            applyLanguage(lang);
+            document.getElementById('lang-dropdown').classList.add('hidden');
+        }
+
+        function handleSubmit() {
+            if (window.isEditModeActive && window.isEditModeActive()) {
+                return;
+            }
+
+            if (selectedRating === null) {
+                return; // No rating selected
+            }
+
+            console.log('Feedback submitted:', selectedRating);
+            // Store feedback
+            localStorage.setItem('feedbackRating', selectedRating);
+
+            // Navigate to enjoy page
+            window.location.href = 'enjoy.html';
+        }
+
+        // Close dropdown
+        window.onclick = function (event) {
+            if (!event.target.matches('#lang-btn') && !event.target.closest('#lang-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('hidden')) {
+                        openDropdown.classList.add('hidden');
+                    }
+                }
+            }
+        }
+
+        // Initialize
+        window.onload = function () {
+            applyLanguage(currentLang);
+            initEditMode({ pageId: 'feedback' });
+        };
+    </script>
+
+
+
+
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>

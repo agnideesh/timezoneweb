@@ -1,0 +1,36 @@
+{
+    "name": "timezone",
+    "version": "1.0.0",
+    "description": "Timezone Top-Up Kiosk Application",
+    "main": "electron-main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder --win",
+        "pack": "electron-builder --dir"
+    },
+    "author": "Timezone",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^28.0.0",
+        "electron-builder": "^24.9.1"
+    },
+    "build": {
+        "appId": "com.timezone.kiosk",
+        "productName": "Timezone",
+        "directories": {
+            "output": "dist"
+        },
+        "win": {
+            "target": "portable",
+            "icon": "page-1/timezone-branding.png"
+        },
+        "files": [
+            "electron-main.js",
+            "page-1/**/*",
+            "edit-mode.js",
+            "edit-mode.css",
+            "Michroma/**/*",
+            "nulshock/**/*"
+        ]
+    }
+}
