@@ -1020,7 +1020,16 @@
 
             // Update Calculation Display
             const calcText = document.getElementById('calculation-text');
+
             let calculationString = `${Math.round(offerCost / 1000)} x ${(offerTizo / (offerCost / 1000)).toFixed(2).replace(/\.00$/, '')} = ${offerTizo}`;
+
+            if (globalUpsellTiers.length > 0) {
+                try {
+                    const breakdown = calculateTieredBreakdown(Math.round(offerCost / 1000));
+                    calculationString = breakdown.breakdownString;
+                } catch (e) { console.error("Error calculating breakdown", e); }
+            }
+
             if (bonusTizo > 0 && scratchCardSelected) {
                 calculationString += ` + ${bonusTizo} (Bonus)`;
             }
@@ -1167,6 +1176,14 @@
             const printCalcText = document.getElementById('print-calculation-text');
             const printCalcSection = document.getElementById('print-calculation-section');
             let calculationString = `${Math.round(offerCost / 1000)} x ${(offerTizo / (offerCost / 1000)).toFixed(2).replace(/\.00$/, '')} = ${offerTizo}`;
+
+            if (globalUpsellTiers.length > 0) {
+                try {
+                    const breakdown = calculateTieredBreakdown(Math.round(offerCost / 1000));
+                    calculationString = breakdown.breakdownString;
+                } catch (e) { console.error("Error calculating breakdown for print", e); }
+            }
+
             if (bonusTizo > 0 && scratchCardSelected) {
                 calculationString += ` + ${bonusTizo} (Bonus)`;
             }
@@ -1318,11 +1335,77 @@
             return orderNum;
         }
 
+        // Global variable for tiers
+        let globalUpsellTiers = [];
+
+        // Fetch Upsell Offers from Server
+        async function fetchUpsellTiers() {
+            try {
+                const response = await fetch('/api/upsell-offers-all');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                if (data.success && Array.isArray(data.offers)) {
+                    // Sort by topup_rb descending for greedy approach
+                    globalUpsellTiers = data.offers.sort((a, b) => b.topup_rb - a.topup_rb);
+                    console.log('Loaded Upsell Tiers:', globalUpsellTiers);
+                    // Update UI to reflect breakdown if needed
+                    updateUI();
+                }
+            } catch (error) {
+                console.error('Failed to fetch upsell offers:', error);
+            }
+        }
+
+        // Calculate Tiered Breakdown (Replicating Server Logic)
+        function calculateTieredBreakdown(amountRb) {
+            let remaining = amountRb;
+            let totalTizo = 0;
+            let breakdownParts = [];
+
+            // Step 1: Base 600k Rule (Hardcoded in Server)
+            const base600Count = Math.floor(remaining / 600);
+            if (base600Count > 0) {
+                const tizoForBase = base600Count * 1200;
+                totalTizo += tizoForBase;
+                remaining = remaining % 600;
+                breakdownParts.push(`(${base600Count} x 600rb x 2.0)`);
+            }
+
+            // Step 2: Greedy Strategy with DB Tiers for Remainder
+            if (remaining > 0 && globalUpsellTiers.length > 0) {
+                const validOffers = globalUpsellTiers.filter(o => o.topup_rb < 600);
+
+                for (const offer of validOffers) {
+                    const count = Math.floor(remaining / offer.topup_rb);
+                    if (count > 0) {
+                        const tizoForTier = count * offer.tizo_value;
+                        totalTizo += tizoForTier;
+                        remaining = remaining % offer.topup_rb;
+
+                        const multiplier = (offer.tizo_value / offer.topup_rb).toFixed(2).replace(/\.00$/, '');
+                        breakdownParts.push(`(${count} x ${offer.topup_rb}rb x ${multiplier})`);
+                    }
+                }
+            }
+
+            // Step 3: Remainder < Smallest Tier (1:1 Ratio)
+            if (remaining > 0) {
+                totalTizo += remaining;
+                breakdownParts.push(`(${remaining}rb x 1.0)`);
+            }
+
+            return {
+                totalTizo: totalTizo,
+                breakdownString: breakdownParts.join(' + ') + ` = ${totalTizo}`
+            };
+        }
+
         // Initialize page with loader
         initPageWithLoader({
             onDataLoad: async () => {
                 applyLanguage(currentLang);
                 loadSessionData();
+                fetchUpsellTiers();
             },
             minLoadTime: 300
         }).then(() => {

@@ -10,6 +10,12 @@
         id="eppiocemhmnlbhjplcgkofciiegomcon"></script>
     <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script>
     <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script>
+
+
+    <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js"
+        id="eppiocemhmnlbhjplcgkofciiegomcon"></script>
+    <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script>
+    <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script>
     <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js"
         id="eppiocemhmnlbhjplcgkofciiegomcon"></script>
     <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script>
@@ -825,13 +831,63 @@
     <script bis_use="true" type="text/javascript" charset="utf-8"
         data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]"
         src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script>
+    <style id="page-loader-styles">
+        html {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        html.page-ready {
+            visibility: visible !important;
+            opacity: 1 !important;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .page-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .page-loading-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .page-loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0, 255, 255, 0.2);
+            border-top-color: #00ffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script bis_use="true" type="text/javascript" charset="utf-8"
+        data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]"
+        src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script>
 </head>
 
 <body _processed_27497193-34c4-402a-bd8a-ed6f41f53fb4_="true"
     bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjM1Iiwic2NvcmUiOjIwMDM1fV0="
     class="" __processed_9281ab6b-e5c6-4649-afb5-b61c8208477e__="true"
     __processed_e5ca0101-d855-40de-923e-109bacba6288__="true" __processed_8f920adf-3f7b-4aba-8a67-da7a810c2c38__="true"
-    __processed_b2efd42f-a823-498d-82df-8fdc8fde6abf__="true" __processed_a5903063-1709-4cfa-90e0-18cf96083b05__="true">
+    __processed_b2efd42f-a823-498d-82df-8fdc8fde6abf__="true" __processed_a5903063-1709-4cfa-90e0-18cf96083b05__="true"
+    __processed_dd31e345-6b92-408e-aa06-c927f2418a69__="true">
     <div class="container" bis_skin_checked="1">
         <!-- Video Background -->
         <video class="video-bg" autoplay="" loop="" muted="" playsinline="">
@@ -848,7 +904,7 @@
             <div class="bonus-container editable" data-id="bonus-container" bis_skin_checked="1">
                 <!-- Header Section -->
                 <div class="header-section editable" data-id="header-section" bis_skin_checked="1">
-                    <p id="header-subtitle" class="header-subtitle">YOU HAVE SELECTED THE SURPRISE</p>
+                    <p id="header-subtitle" class="header-subtitle">KAMU TELAH MEMILIH KEJUTAN</p>
                     <h1 class="header-title"><span class="highlight">BONUS</span> TIZO!</h1>
                 </div>
 
@@ -861,7 +917,7 @@
                         <!-- Top-up Section -->
                         <div class="topup-section editable" data-id="topup-section"
                             style="transform: translate(7.99989px, -8px) scale(1.2);" bis_skin_checked="1">
-                            <h3 id="topup-title" class="section-title">TOP-UP YANG PICKED:</h3>
+                            <h3 id="topup-title" class="section-title">TOP-UP YANG DIPILIH:</h3>
                             <div class="checkbox-row" bis_skin_checked="1">
                                 <div class="checkbox-wrapper" bis_skin_checked="1">
                                     <img src="checkbox-icon.png" alt="Checkbox" class="checkbox-bg">
@@ -869,11 +925,11 @@
                                 </div>
                                 <div class="value-group" bis_skin_checked="1">
                                     <div class="value-item" bis_skin_checked="1">
-                                        <span id="topup-amount" class="value-amount pink">600</span>
+                                        <span id="topup-amount" class="value-amount pink">1790</span>
                                         <span class="value-currency">Rb</span>
                                     </div>
                                     <div class="value-item" bis_skin_checked="1">
-                                        <span id="topup-tizo" class="value-tizo">1350</span>
+                                        <span id="topup-tizo" class="value-tizo">3460</span>
                                         <span class="value-tizo-label">TIZO</span>
                                     </div>
                                 </div>
@@ -882,7 +938,7 @@
 
                         <!-- Free Gifts Section (for new user blue card offer) -->
                         <div id="free-gifts-section" class="free-gifts-section editable" data-id="free-gifts-section"
-                            style="display: block; margin-top: 15px; margin-left: 37px; transform: translate(-13.3333px, -15.9999px) scale(1);"
+                            style="display: none; margin-top: 15px; margin-left: 37px; transform: translate(-13.3333px, -15.9999px) scale(1);"
                             bis_skin_checked="1">
                             <h3 id="free-gifts-title" class="section-title editable" data-id="free-gifts-title"
                                 style="color: rgb(242, 202, 2); font-size: 14px; transform: translate(-173.333px, 21.3334px) scale(2.2);">
@@ -901,7 +957,7 @@
                         <!-- Scratch Card Section -->
                         <div class="scratch-section editable" data-id="scratch-section"
                             style="transform: translate(13.3334px, -72.0001px) scale(1.2);" bis_skin_checked="1">
-                            <h3 id="scratch-title" class="section-title" style="margin-top: 60px;">SCRATCH CARD WON:
+                            <h3 id="scratch-title" class="section-title" style="margin-top: 60px;">HADIAH SCRATCH CARD:
                             </h3>
                             <div class="checkbox-row" bis_skin_checked="1">
                                 <div class="checkbox-wrapper" onclick="toggleScratchCard()" bis_skin_checked="1">
@@ -920,7 +976,7 @@
                                 </div>
                             </div>
                             <!-- Free Gift Row (dynamic, shown when gift exists) -->
-                            <div id="gift-row" class="gift-row"
+                            <div id="gift-row" class="gift-row hidden"
                                 style="display: flex; opacity: 1; text-decoration: none;" bis_skin_checked="1">
                                 <span id="gift-label" class="gift-label editable" data-id="gift-label"
                                     style="font-weight: bold; transform: translate(0px, 13.3335px) scale(1.2);">FREE
@@ -934,7 +990,7 @@
                         <div class="scratch-section editable" data-id="ood-section" bis_skin_checked="1"
                             style="margin-top: 20px; transform: translate(13.3334px, -72.0001px) scale(1.2);">
                             <h3 id="ood-title" class="section-title" style="font-size: 24px; margin-bottom: 15px;">OOD
-                                (OUT OF DELIVERY):</h3>
+                                (OFFER OF THE DAY):</h3>
                             <div class="checkbox-row" bis_skin_checked="1">
                                 <div class="checkbox-wrapper" onclick="toggleOOD()" bis_skin_checked="1">
                                     <img src="checkbox-icon.png" alt="Checkbox" class="checkbox-bg">
@@ -957,7 +1013,7 @@
                         <div class="scratch-section editable" data-id="ooh-section" bis_skin_checked="1"
                             style="margin-top: 20px; transform: translate(13.3334px, -72.0001px) scale(1.2);">
                             <h3 id="ooh-title" class="section-title" style="font-size: 24px; margin-bottom: 15px;">OOH
-                                (OUT OF HOME):</h3>
+                                (OFFER OF THE HOUR):</h3>
                             <div class="checkbox-row" bis_skin_checked="1">
                                 <div class="checkbox-wrapper" onclick="toggleOOH()" bis_skin_checked="1">
                                     <img src="checkbox-icon.png" alt="Checkbox" class="checkbox-bg">
@@ -983,23 +1039,24 @@
                     style="transform: translate(5.33337px, 240px) scale(1.2);" bis_skin_checked="1">
                     <p id="total-label" class="total-label">TOTAL TIZO:</p>
                     <div class="total-value-container" bis_skin_checked="1">
-                        <div id="total-amount" class="total-amount" bis_skin_checked="1">1750</div>
+                        <div id="total-amount" class="total-amount" bis_skin_checked="1">3860</div>
                         <span class="total-unit-inline">TIZO</span>
                     </div>
                 </div>
 
                 <!-- Calculation Display -->
                 <div id="calculation-section" class="editable" data-id="calculation-section"
-                    style="text-align: center; margin-top: 10px; color: #fff; font-family: 'Nulshock', sans-serif; transform: translate(5.33337px, 240px) scale(1.2);">
-                    <p id="calculation-text" style="font-size: 20px; color: #aaa;">Calculation: 600 x 2 = 1200 + Bonus
-                    </p>
+                    style="text-align: center; margin-top: 10px; color: #fff; font-family: 'Nulshock', sans-serif; transform: translate(5.33337px, 240px) scale(1.2);"
+                    bis_skin_checked="1">
+                    <p id="calculation-text" style="font-size: 20px; color: #aaa;">Calculation: 1790 x 1.93 = 3460 + 400
+                        (Bonus)</p>
                 </div>
 
                 <!-- Next Button -->
                 <div class="next-button editable" data-id="next-button" onclick="handleNext()"
-                    style="transform: translate(2.66675px, 366.667px) scale(1.5);" bis_skin_checked="1">
+                    style="transform: translate(-13.3333px, 205.333px) scale(1.3);" bis_skin_checked="1">
                     <img src="button.png" alt="Button" class="next-button-bg">
-                    <span id="next-text" class="next-button-text">PRINT</span>
+                    <span id="next-text" class="next-button-text">CETAK</span>
                 </div>
             </div>
         </div>
@@ -1016,7 +1073,7 @@
 
         <div class="print-location" bis_skin_checked="1">
             <div class="print-location-name" bis_skin_checked="1">Lippo Mall Puri</div>
-            <div class="print-location-date" id="print-date" bis_skin_checked="1">Kamis, 11 Des 2025 19.28</div>
+            <div class="print-location-date" id="print-date" bis_skin_checked="1">Jumat, 12 Des 2025 13.18</div>
         </div>
 
         <hr class="print-divider">
@@ -1024,7 +1081,7 @@
         <p class="print-message" id="print-message">Dimohon untuk menyerahkan struk ini<br>Kepada kasir untuk
             menyelesaikan pembayaran.</p>
 
-        <div class="print-order-number" id="print-order-number" bis_skin_checked="1">L2R7EVBR8EPG</div>
+        <div class="print-order-number" id="print-order-number" bis_skin_checked="1">RSC995GNZNOV</div>
 
         <hr class="print-divider">
 
@@ -1033,13 +1090,13 @@
             <div class="print-section-title" bis_skin_checked="1">Paket Top-up</div>
             <div class="print-row" bis_skin_checked="1">
                 <span>Nominal Transaksi :</span>
-                <span id="print-topup-nominal">Rp600.000</span>
+                <span id="print-topup-nominal">Rp1.790.000</span>
             </div>
             <div class="print-row" bis_skin_checked="1">
                 <span>Total Tizo :</span>
-                <span id="print-topup-tizo">1350 Tizo</span>
+                <span id="print-topup-tizo">3460 Tizo</span>
             </div>
-            <div class="print-row" id="print-free-gifts-row" bis_skin_checked="1" style="display: flex;">
+            <div class="print-row" id="print-free-gifts-row" bis_skin_checked="1" style="display: none;">
                 <span>Free Gifts :</span>
                 <span id="print-free-gifts-value">500 Tickets</span>
             </div>
@@ -1056,7 +1113,7 @@
                 <span>Total Tizo :</span>
                 <span id="print-scratch-tizo">400 Tizo</span>
             </div>
-            <div class="print-row" id="print-bonus-row" bis_skin_checked="1" style="display: flex;">
+            <div class="print-row" id="print-bonus-row" bis_skin_checked="1" style="display: none;">
                 <span>Bonus :</span>
                 <span id="print-bonus-value">Doritos</span>
             </div>
@@ -1064,7 +1121,7 @@
 
         <!-- OOD Section (Print) -->
         <div class="print-section" id="print-ood-section" bis_skin_checked="1" style="display: none;">
-            <div class="print-section-title" bis_skin_checked="1">OOD (Out Of Delivery)</div>
+            <div class="print-section-title" bis_skin_checked="1">OOD (Offer Of The Day)</div>
             <div class="print-row" bis_skin_checked="1">
                 <span>Nominal Transaksi :</span>
                 <span id="print-ood-nominal">Rp50.000</span>
@@ -1077,7 +1134,7 @@
 
         <!-- OOH Section (Print) -->
         <div class="print-section" id="print-ooh-section" bis_skin_checked="1" style="display: none;">
-            <div class="print-section-title" bis_skin_checked="1">OOH (Out Of Home)</div>
+            <div class="print-section-title" bis_skin_checked="1">OOH (Offer Of The Hour)</div>
             <div class="print-row" bis_skin_checked="1">
                 <span>Nominal Transaksi :</span>
                 <span id="print-ooh-nominal">Rp50.000</span>
@@ -1092,27 +1149,27 @@
         <div class="print-section" id="print-calculation-section" bis_skin_checked="1"
             style="display: block; border-bottom: 1px dashed #ccc;">
             <div class="print-section-title" bis_skin_checked="1">Calculation Logic</div>
-            <p id="print-calculation-text" style="font-size: 10px; margin: 0;">-</p>
+            <p id="print-calculation-text" style="font-size: 10px; margin: 0;">1790 x 1.93 = 3460 + 400 (Bonus)</p>
         </div>
 
         <!-- Total Section -->
         <div class="print-total-section" bis_skin_checked="1">
             <div class="print-row print-total-row" bis_skin_checked="1">
                 <span>Total Bayar :</span>
-                <span id="print-total-payment">Rp700.000</span>
+                <span id="print-total-payment">Rp1.890.000</span>
             </div>
             <div class="print-row print-total-row" bis_skin_checked="1">
                 <span>Total Tizo :</span>
-                <span id="print-total-tizo">1750 Tizo</span>
+                <span id="print-total-tizo">3860 Tizo</span>
             </div>
             <div class="print-row print-total-row" id="print-total-bonus-row" bis_skin_checked="1"
-                style="display: flex;">
+                style="display: none;">
                 <span>Bonus :</span>
                 <span id="print-total-bonus">Doritos</span>
             </div>
         </div>
 
-        <p class="print-footer" id="print-footer">Penawaran ini berlaku untuk <span id="print-card-count">1</span>
+        <p class="print-footer" id="print-footer">Penawaran ini berlaku untuk <span id="print-card-count">2</span>
             kartu yang kamu miliki</p>
     </div>
 
@@ -1132,8 +1189,8 @@
                 headerTitleUnchecked: '<span class="highlight">THIS</span> BONUS!',
                 topupTitle: "TOP-UP YANG PICKED:",
                 scratchTitle: "SCRATCH CARD WON:",
-                oodTitle: "OOD (OUT OF DELIVERY):",
-                oohTitle: "OOH (OUT OF HOME):",
+                oodTitle: "OOD (OFFER OF THE DAY):",
+                oohTitle: "OOH (OFFER OF THE HOUR):",
                 totalLabel: "TOTAL TIZO:",
                 nextText: "PRINT",
                 langLabel: "English"
@@ -1145,8 +1202,8 @@
                 headerTitleUnchecked: '<span class="highlight">BONUS</span> INI!',
                 topupTitle: "TOP-UP YANG DIPILIH:",
                 scratchTitle: "HADIAH SCRATCH CARD:",
-                oodTitle: "OOD (OUT OF DELIVERY):",
-                oohTitle: "OOH (OUT OF HOME):",
+                oodTitle: "OOD (OFFER OF THE DAY):",
+                oohTitle: "OOH (OFFER OF THE HOUR):",
                 totalLabel: "TOTAL TIZO:",
                 nextText: "CETAK",
                 langLabel: "Bahasa"
@@ -1258,7 +1315,16 @@
 
             // Update Calculation Display
             const calcText = document.getElementById('calculation-text');
+
             let calculationString = `${Math.round(offerCost / 1000)} x ${(offerTizo / (offerCost / 1000)).toFixed(2).replace(/\.00$/, '')} = ${offerTizo}`;
+
+            if (globalUpsellTiers.length > 0) {
+                try {
+                    const breakdown = calculateTieredBreakdown(Math.round(offerCost / 1000));
+                    calculationString = breakdown.breakdownString;
+                } catch (e) { console.error("Error calculating breakdown", e); }
+            }
+
             if (bonusTizo > 0 && scratchCardSelected) {
                 calculationString += ` + ${bonusTizo} (Bonus)`;
             }
@@ -1479,6 +1545,14 @@
             const printCalcText = document.getElementById('print-calculation-text');
             const printCalcSection = document.getElementById('print-calculation-section');
             let calculationString = `${Math.round(offerCost / 1000)} x ${(offerTizo / (offerCost / 1000)).toFixed(2).replace(/\.00$/, '')} = ${offerTizo}`;
+
+            if (globalUpsellTiers.length > 0) {
+                try {
+                    const breakdown = calculateTieredBreakdown(Math.round(offerCost / 1000));
+                    calculationString = breakdown.breakdownString;
+                } catch (e) { console.error("Error calculating breakdown for print", e); }
+            }
+
             if (bonusTizo > 0 && scratchCardSelected) {
                 calculationString += ` + ${bonusTizo} (Bonus)`;
             }
@@ -1655,11 +1729,80 @@
             console.log('Accept scratchcard loaded:', { offerCost, offerTizo, bonusCost, bonusTizo });
         }
 
+        // Global variable for tiers
+        let globalUpsellTiers = [];
+
+        // Fetch Upsell Offers from Server
+        async function fetchUpsellTiers() {
+            try {
+                const response = await fetch('/api/upsell-offers-all');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                if (data.success && Array.isArray(data.offers)) {
+                    // Sort by topup_rb descending for greedy approach
+                    globalUpsellTiers = data.offers.sort((a, b) => b.topup_rb - a.topup_rb);
+                    console.log('Loaded Upsell Tiers:', globalUpsellTiers);
+                    // Update UI to reflect breakdown if needed
+                    updateUI();
+                }
+            } catch (error) {
+                console.error('Failed to fetch upsell offers:', error);
+            }
+        }
+
+        // Calculate Tiered Breakdown (Replicating Server Logic)
+        function calculateTieredBreakdown(amountRb) {
+            let remaining = amountRb;
+            let totalTizo = 0;
+            let breakdownParts = [];
+
+            // Step 1: Base 600k Rule (Hardcoded in Server)
+            // 600k => 1200 Tizo (2.0 multiplier)
+            const base600Count = Math.floor(remaining / 600);
+            if (base600Count > 0) {
+                const tizoForBase = base600Count * 1200;
+                totalTizo += tizoForBase;
+                remaining = remaining % 600;
+                breakdownParts.push(`(${base600Count} x 600rb x 2.0)`);
+            }
+
+            // Step 2: Greedy Strategy with DB Tiers for Remainder
+            // Tiers are already sorted descending
+            if (remaining > 0 && globalUpsellTiers.length > 0) {
+                // Filter offers < 600k (Server logic constraint)
+                const validOffers = globalUpsellTiers.filter(o => o.topup_rb < 600);
+
+                for (const offer of validOffers) {
+                    const count = Math.floor(remaining / offer.topup_rb);
+                    if (count > 0) {
+                        const tizoForTier = count * offer.tizo_value;
+                        totalTizo += tizoForTier;
+                        remaining = remaining % offer.topup_rb;
+
+                        const multiplier = (offer.tizo_value / offer.topup_rb).toFixed(2).replace(/\.00$/, '');
+                        breakdownParts.push(`(${count} x ${offer.topup_rb}rb x ${multiplier})`);
+                    }
+                }
+            }
+
+            // Step 3: Remainder < Smallest Tier (1:1 Ratio)
+            if (remaining > 0) {
+                totalTizo += remaining;
+                breakdownParts.push(`(${remaining}rb x 1.0)`);
+            }
+
+            return {
+                totalTizo: totalTizo,
+                breakdownString: breakdownParts.join(' + ') + ` = ${totalTizo}`
+            };
+        }
+
         // Initialize page with loader
         initPageWithLoader({
             onDataLoad: async () => {
                 applyLanguage(currentLang);
                 loadSessionData();
+                fetchUpsellTiers();
             },
             minLoadTime: 300
         }).then(() => {
@@ -1679,6 +1822,9 @@
         style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span
         id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><span id="PING_IFRAME_FORM_DETECTION"
         style="display: none;"></span>
+
+
+    <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
 </body>
 
 </html>
